@@ -8,6 +8,9 @@ function SurveyForm() {
   const handleSubmit = async (e) => {
   e.preventDefault();
   try {
+      setSubmitted(true)
+
+      
     const response = await fetch('/.netlify/functions/survey', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -15,8 +18,7 @@ function SurveyForm() {
     });
 
     const result = await response.json();
-    console.log('Success:', result);
-    setSubmitted(true)
+  
   } catch (error) {
     console.error('Error submitting survey:', error);
   }
