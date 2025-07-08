@@ -6,13 +6,21 @@ function SurveyForm() {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await fetch('/.netlify/functions/survey', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(formData),
-});
+  e.preventDefault();
+  try {
+    const response = await fetch('/.netlify/functions/survey', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+    console.log('Success:', result);
+    setSubmitted(true)
+  } catch (error) {
+    console.error('Error submitting survey:', error);
   }
+};
 
   return (
     <div style={{
